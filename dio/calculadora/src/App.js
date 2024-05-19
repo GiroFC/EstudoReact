@@ -83,6 +83,18 @@ const App = () => {
     }
   }
 
+  const handdlePercNumbers = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(currentNumber);
+      handdleOnClear();
+      setOperation('%')
+    }else{
+      const sum = (Number(firstNumber)/100) * Number(currentNumber)
+      setCurrentNumber('' + sum)
+      setOperation('')
+    }
+  }
+
   const handdleCalculate = () => {
     if(firstNumber != '0' && operation){
       switch(operation){
@@ -98,6 +110,9 @@ const App = () => {
         case '÷':
           handdleDivNumbers()
           break;
+        case '%':
+          handdlePercNumbers()
+          break;
         default:
           break;
       }
@@ -110,7 +125,7 @@ const App = () => {
         <Input value={currentNumber}/>
           <Row>
             <Button label="C" onClick={() => {handdleClearFirstOp()}}/>
-            <Button label="%" onClick={() => {handdleAddNumber('%')}}/>
+            <Button label="%" onClick={() => {handdlePercNumbers()}}/>
             <Button label="<" onClick={() => {handdleClearLast()}}/>
             <Button label="÷" onClick={() => {handdleDivNumbers()}}/>
           </Row>
@@ -133,9 +148,9 @@ const App = () => {
             <Button label="+" onClick={() => {handdleSumNumbers()}}/>
           </Row>
           <Row>
-            <Button label=""/>
+            <Button label="-(" onClick={() => {handdleAddNumber('-')}}/>
             <Button label="0" onClick={() => {handdleAddNumber('0')}}/>
-            <Button label="" onClick={() => {}}/>
+            <Button label="." onClick={() => {handdleAddNumber('.')}}/>
             <Button label="=" onClick={() => {handdleCalculate()}}/>
           </Row>
       </Content>
