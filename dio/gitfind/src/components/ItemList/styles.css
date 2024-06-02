@@ -1,0 +1,16 @@
+.itemList{
+    padding: 10px;
+    margin-block: 10px;
+}
+
+.itemList strong{
+    color: #539BF5;
+    font-size: 26px;
+}
+
+.itemList p{
+    font-size: 14px;
+    padding-top: 20px;
+    color: #999999;
+    max-width: 500px;
+}
