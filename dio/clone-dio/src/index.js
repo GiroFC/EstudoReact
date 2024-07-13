@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Register from './pages/Register';
 import Feed from './pages/Feed';
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/feed",
     element: <Feed/>,
+  },
+  {
+    path: "/register",
+    element: <Register/>,
   },
 ]);
 
