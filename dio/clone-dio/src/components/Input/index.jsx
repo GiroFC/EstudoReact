@@ -1,16 +1,32 @@
 import React from 'react'
+import { Controller } from "react-hook-form"
 import {
     InputContainer,
     IconContainer,
-    InputText
+    InputText,
+    ErrorText,
 } from './styles'
 
-const Input = ({ leftIcon, name, ...rest }) => {
+const Input = ({ control, leftIcon, name, required, errorMensage, ...rest }) => {
+
+
     return (
+        <>
         <InputContainer>
-        {leftIcon ? (<IconContainer>{leftIcon}</IconContainer>) : null}
-            <InputText {...rest} />
+            {leftIcon ? (<IconContainer>{leftIcon}</IconContainer>) : null}
+            <Controller
+                name={name}
+                control={control}
+                rules={{required: {required}}}
+                render={({ field }) => (
+                    <InputText {...field} {...rest} />
+                )}
+            />
+
         </InputContainer>
+        {errorMensage ? <ErrorText>{errorMensage}</ErrorText> : null}
+
+        </>
     )
 }
 

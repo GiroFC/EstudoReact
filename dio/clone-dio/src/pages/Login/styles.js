@@ -77,3 +77,4 @@ export const CriarText = styled.p`
 
     color: #E23dd7;
 `
+
