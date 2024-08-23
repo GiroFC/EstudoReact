@@ -1,8 +1,11 @@
 import GlobalStyle from './styles/global'
 import styled from "styled-components"
 import Form from "./components/Form.js"
-import { toast, ToastContainer} from 'react-toastfy'
-import "react-toastfy/dist/ReactToastify.css"
+import Grid from "./components/Grid.js"
+import axios from "axios"
+import { useEffect, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 const Container = styled.div`
   width: 100%;
@@ -17,13 +20,32 @@ const Container = styled.div`
 const Title = styled.h2``;
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
+
+  const getUsers = async () => {
+    try{
+      const res = await axios.get("http://localhost:8880");
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+    }catch (error){
+      toast.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, [setUsers]);
+
+
   return (
     <>
-    <Container>
-      <Title>USUÁRIOS</Title>
-    </Container>
-    <ToastContainer autoClose={3000} position={toast.POSITION.BUTTOM_LEFT}/>
-      <GlobalStyle/>
+      <Container>
+        <Title>USUÁRIOS</Title>
+        <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers}/>
+        <Grid usersList={users} setUsers={setUsers} setOnEdit={setOnEdit}/>
+      </Container>
+      <ToastContainer autoClose={3000} position={"bottom-left"} />
+      <GlobalStyle />
     </>
   );
 }
